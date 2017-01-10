@@ -143,20 +143,37 @@ void PrintArray(int arr[], int n)
 	cout << "\n";
 }
 
-// generowanie liczb
-void GenerateNumbers(int arr2[], int size) {
+// generowanie liczb randomowych
+void GenerateRandomNumbers(int arr2[], int size) {
 	srand(time(0));
 	for (int i = 0; i < size; ++i)
 	{
-		{
-			arr2[i] = rand() % 2147483647;
-		}
+		arr2[i] = rand() % 2147483647;
+	}
+}
+
+// generowanie liczb od 0 do x
+void GenerateMinMaxNumbers(int arr2[], int size) {
+	for (int i = 0; i < size; ++i)
+	{
+		arr2[i] = i;
+	}
+}
+
+// generowanie liczb od x do 0
+void GenerateMaxMinNumbers(int arr2[], int size) {
+	int temp;
+	temp = size - 1;
+	for (int i = 0; i < size; ++i)
+	{
+		arr2[temp] = i;
+		temp = temp - 1;
 	}
 }
 
 /* ######################################## WYNIKI ########################################
 +----------------+-----------------+------------------+------------------+----------------+
-| NAZWA          | dla 50tys [sec] | dla 100tys [sec] | dla 500tys [sec] | dla 1mil [sec] |
+| RANDOM         | dla 50tys [sec] | dla 100tys [sec] | dla 500tys [sec] | dla 1mil [sec] |
 +----------------+-----------------+------------------+------------------+----------------+
 |BubbleSort      | 1min :34.357sec | 6 min:40.651sec  | 100 min+         | ?              |
 |HeapSort        | 0.151           | 0.344            | 1.699            | 3.605          |
@@ -164,6 +181,27 @@ void GenerateNumbers(int arr2[], int size) {
 |HoareQuickSort  | 0.040           | 0.086            | 0.490            | 1.080          |
 |CombSort        | 0.076           | 0.141            | 0.750            | 1.441          |
 +----------------+-----------------+------------------+------------------+----------------+
+
++----------------+-----------------+------------------+------------------+----------------+
+| OD 0 DO X      | dla 50tys [sec] | dla 100tys [sec] | dla 500tys [sec] | dla 1mil [sec] |
++----------------+-----------------+------------------+------------------+----------------+
+|BubbleSort      | 1min :34.357sec | 6 min:40.651sec  | 100 min+         | ?              |
+|HeapSort        | 0.151           | 0.344            | 1.699            | 3.605          |
+|LomutoQuickSort | 0.037           | 0.071            | 0.384            | 0.784          |
+|HoareQuickSort  | 0.040           | 0.086            | 0.490            | 1.080          |
+|CombSort        | 0.076           | 0.141            | 0.750            | 1.441          |
++----------------+-----------------+------------------+------------------+----------------+
+
++----------------+-----------------+------------------+------------------+----------------+
+| OD X DO 0      | dla 50tys [sec] | dla 100tys [sec] | dla 500tys [sec] | dla 1mil [sec] |
++----------------+-----------------+------------------+------------------+----------------+
+|BubbleSort      | 8.960           | 35.886           | 908.028          | ?              |
+|HeapSort        | 0.146           | 0.331            | 1.674            | 3.605          |
+|LomutoQuickSort | 0.008           | 0.013            | 0.054            | 0.784          |
+|HoareQuickSort  | 0.008           | 0.020            | 0.076            | 1.080          |
+|CombSort        | 0.007           | 0.013            | 0.081            | 1.441          |
++----------------+-----------------+------------------+------------------+----------------+
+
 
 */
 
@@ -174,24 +212,51 @@ int main()
 	int startquick = 0;
 	int size = 500000; // rozmiar tablicy
 	int * arr = new int[size];
-	GenerateNumbers(arr, size);
+	int * arr1 = arr;
+	int * arr2 = arr;
+	int * arr3 = arr;
+	int * arr4 = arr;
+	int * arr5 = arr;
+	
+	/* ######################################## SORTOWANIA ########################################*/
+	//GenerateRandomNumbers(arr, size);
+	//GenerateMinMaxNumbers(arr, size);
+	GenerateMaxMinNumbers(arr, size);
+	/* ######################################## ########## ########################################*/
 
 	//przed sortowaniem
 	//PrintArray(arr, size);
 
 	start = clock();
-
-	/* ######################################## SORTOWANIA ########################################*/
-	//BubbleSort(arr, size);   //dla 40k liczy 60 sec
-	//HeapSort(arr, size);
-	//LomutoQuickSort(arr, startquick, size - 1);
-	//HoareQuickSort(arr, startquick, size - 1);
-	//CombSort(arr, size);
-	/* ######################################## ########## ########################################*/
-
+	HeapSort(arr2, size);
 	stop = clock();
 	time = (double)(stop - start) / CLOCKS_PER_SEC;
-	cout << "czas: " << time << endl;
+	cout << "czas HeapSort: " << time << endl;
+
+	start = clock();
+	LomutoQuickSort(arr2, startquick, size - 1);
+	stop = clock();
+	time = (double)(stop - start) / CLOCKS_PER_SEC;
+	cout << "czas LomutoQuickSort: " << time << endl;
+
+	start = clock();
+	HoareQuickSort(arr3, startquick, size - 1);
+	stop = clock();
+	time = (double)(stop - start) / CLOCKS_PER_SEC;
+	cout << "czas HoareQuickSort: " << time << endl;
+
+	start = clock();
+	CombSort(arr4, size);
+	stop = clock();
+	time = (double)(stop - start) / CLOCKS_PER_SEC;
+	cout << "czas CombSort: " << time << endl;
+
+	start = clock();
+	BubbleSort(arr5, size);
+	stop = clock();
+	time = (double)(stop - start) / CLOCKS_PER_SEC;
+	cout << "czas BubbleSort: " << time << endl;
+
 
 	//po stortowaniu
 	//PrintArray(arr, size);
