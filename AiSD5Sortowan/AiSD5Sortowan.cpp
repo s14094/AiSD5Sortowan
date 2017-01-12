@@ -175,31 +175,31 @@ void GenerateMaxMinNumbers(int arr2[], int size) {
 +----------------+-----------------+------------------+------------------+----------------+
 | RANDOM         | dla 50tys [sec] | dla 100tys [sec] | dla 500tys [sec] | dla 1mil [sec] |
 +----------------+-----------------+------------------+------------------+----------------+
-|BubbleSort      | 1min :34.357sec | 6 min:40.651sec  | 100 min+         | ?              |
-|HeapSort        | 0.151           | 0.344            | 1.699            | 3.605          |
-|LomutoQuickSort | 0.037           | 0.071            | 0.384            | 0.784          |
-|HoareQuickSort  | 0.040           | 0.086            | 0.490            | 1.080          |
-|CombSort        | 0.076           | 0.141            | 0.750            | 1.441          |
+|BubbleSort      | 9.565           | 37.878           | 952.971          | ponad 30 min   |
+|HeapSort        | 0.167           | 0.373            | 2.220            | 4.553          |
+|LomutoQuickSort | 0.007           | 0.016            | 0.082            | 0.195          |
+|HoareQuickSort  | 0.012           | 0.031            | 0.193            | 0.469          |
+|CombSort        | 0.006           | 0.015            | 0.087            | 0.188          |
 +----------------+-----------------+------------------+------------------+----------------+
 
 +----------------+-----------------+------------------+------------------+----------------+
 | OD 0 DO X      | dla 50tys [sec] | dla 100tys [sec] | dla 500tys [sec] | dla 1mil [sec] |
 +----------------+-----------------+------------------+------------------+----------------+
-|BubbleSort      | 1min :34.357sec | 6 min:40.651sec  | 100 min+         | ?              |
-|HeapSort        | 0.151           | 0.344            | 1.699            | 3.605          |
-|LomutoQuickSort | 0.037           | 0.071            | 0.384            | 0.784          |
-|HoareQuickSort  | 0.040           | 0.086            | 0.490            | 1.080          |
-|CombSort        | 0.076           | 0.141            | 0.750            | 1.441          |
+|BubbleSort      | 9.483           | 39.062           | 987.455          | ponad 30 min   |
+|HeapSort        | 0.155           | 0.324            | 2.032            | 4.371          |
+|LomutoQuickSort | 0.006           | 0.012            | 0.060            | 0.152          |
+|HoareQuickSort  | 0.008           | 0.018            | 0.076            | 0.181          |
+|CombSort        | 0.006           | 0.013            | 0.081            | 0.197          |
 +----------------+-----------------+------------------+------------------+----------------+
 
 +----------------+-----------------+------------------+------------------+----------------+
 | OD X DO 0      | dla 50tys [sec] | dla 100tys [sec] | dla 500tys [sec] | dla 1mil [sec] |
 +----------------+-----------------+------------------+------------------+----------------+
-|BubbleSort      | 8.960           | 35.886           | 908.028          | ?              |
-|HeapSort        | 0.146           | 0.331            | 1.674            | 3.605          |
-|LomutoQuickSort | 0.008           | 0.013            | 0.054            | 0.784          |
-|HoareQuickSort  | 0.008           | 0.020            | 0.076            | 1.080          |
-|CombSort        | 0.007           | 0.013            | 0.081            | 1.441          |
+|BubbleSort      | 8.960           | 35.886           | 908.028          | ponad 30 min   |
+|HeapSort        | 0.146           | 0.331            | 1.674            | 3.489          |
+|LomutoQuickSort | 0.008           | 0.013            | 0.054            | 0.113          |
+|HoareQuickSort  | 0.008           | 0.020            | 0.076            | 0.146          |
+|CombSort        | 0.007           | 0.013            | 0.081            | 0.173          |
 +----------------+-----------------+------------------+------------------+----------------+
 
 
@@ -210,7 +210,7 @@ int main()
 	clock_t start, stop;
 	double time;
 	int startquick = 0;
-	int size = 500000; // rozmiar tablicy
+	int size = 50000; // rozmiar tablicy
 	int * arr = new int[size];
 	int * arr1 = arr;
 	int * arr2 = arr;
@@ -219,9 +219,9 @@ int main()
 	int * arr5 = arr;
 	
 	/* ######################################## SORTOWANIA ########################################*/
-	//GenerateRandomNumbers(arr, size);
+	GenerateRandomNumbers(arr, size);
 	//GenerateMinMaxNumbers(arr, size);
-	GenerateMaxMinNumbers(arr, size);
+	//GenerateMaxMinNumbers(arr, size);
 	/* ######################################## ########## ########################################*/
 
 	//przed sortowaniem
@@ -250,6 +250,7 @@ int main()
 	stop = clock();
 	time = (double)(stop - start) / CLOCKS_PER_SEC;
 	cout << "czas CombSort: " << time << endl;
+
 
 	start = clock();
 	BubbleSort(arr5, size);
